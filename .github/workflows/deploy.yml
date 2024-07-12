@@ -19,6 +19,9 @@ jobs:
           toolchain: nightly
           override: true
 
+      - name: Install wasm32
+        run: rustup target add wasm32-unknown-unknown
+
       - name: Install trunk
         run: cargo install trunk wasm-bindgen-cli
 
