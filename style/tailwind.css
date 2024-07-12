@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background-color: rgb(35, 34, 54);
+  color: rgb(200, 200, 200);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.gradient-text {
+  background: -webkit-linear-gradient(#50a2ff, #ee82f8);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-bottom {
+  background: -webkit-linear-gradient(#ee82f8, #50a2ff);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
