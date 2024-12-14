@@ -1,0 +1,8 @@
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+:root {
+  --cursor-color: rgb(3, 105, 161);
+}

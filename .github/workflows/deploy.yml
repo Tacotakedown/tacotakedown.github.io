@@ -1,4 +1,4 @@
-name: Deploy Leptos App
+name: Deploy Vite App
 
 on:
   push:
@@ -11,25 +11,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: nightly
-          override: true
-
-      - name: Install wasm32
-        run: rustup target add wasm32-unknown-unknown
-
-      - name: Install trunk
-        run: cargo install trunk wasm-bindgen-cli
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
 
       - name: Install dependencies
-        run: cargo build
+        run: bun install
 
       - name: Build the project
-        run: trunk build --release
+        run: bun run build
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/master'
