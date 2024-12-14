@@ -7,6 +7,7 @@ import {HeroHighlight} from "./components/heroHighlight/HeroHighlight";
 import AnimatedCursor from "react-animated-cursor";
 import {Modal} from "./components/modal/Modal";
 import {useState, useEffect} from "react";
+import usePageSize from "@/hooks/UsePageSize"
 
 function App() {
 
@@ -25,24 +26,30 @@ function App() {
         updateFavicon(favIcon);
     }, [favIcon]);
 
+    const {width} = usePageSize();
     return (
         <HeroHighlight>
-            <AnimatedCursor
-                clickables={[".clickable"]}
-                innerSize={8}
-                outerSize={35}
-                innerScale={1}
-                outerScale={2}
-                outerAlpha={0}
-                showSystemCursor={false}
-                // hasBlendMode={true}
-                outerStyle={{
-                    border: "3px solid var(--cursor-color)",
-                }}
-                innerStyle={{
-                    backgroundColor: "var(--cursor-color)",
-                }}
-            />
+            {width >= 768 ? (
+                <AnimatedCursor
+                    clickables={[".clickable"]}
+                    innerSize={8}
+                    outerSize={35}
+                    innerScale={1}
+                    outerScale={2}
+                    outerAlpha={0}
+                    showSystemCursor={false}
+                    // hasBlendMode={true}
+                    outerStyle={{
+                        border: "3px solid var(--cursor-color)",
+                    }}
+                    innerStyle={{
+                        backgroundColor: "var(--cursor-color)",
+                    }}/>
+            ) : (
+                <></>
+            )}
+
+
             <div className="flex flex-col justify-center">
                 <div className="flex items-center justify-center h-screen w-full">
                     <Routes>

@@ -3,39 +3,45 @@
 @tailwind utilities;
 
 html {
-  background-color: rgb(0, 0, 0);
-  color: white;
+    background-color: rgb(0, 0, 0);
+    color: white;
 }
 
 a {
-  cursor: none;
+    cursor: none;
 }
 
 .text-appear {
-  opacity: 1;
-  transition: all ease-in-out 1s;
+    opacity: 1;
+    transition: all ease-in-out 1s;
 }
+
 .hide-description {
-  opacity: 0;
-  transition: all ease-in-out 1s;
+    opacity: 0;
+    transition: all ease-in-out 1s;
 }
 
 .scrollless::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .scrollless {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
 .home-text {
-  margin-top: -30vh;
-  margin-bottom: -30vh;
+    margin-top: -30vh;
+    margin-bottom: -30vh;
 }
 
 @media screen and (max-width: 768px) {
-  .home-text {
-    margin-top: -35vh;
-    margin-bottom: -15vh;
-  }
+    .home-text {
+        margin-top: -35vh;
+        margin-bottom: -15vh;
+    }
+
+    * {
+        cursor: default;
+    }
 }

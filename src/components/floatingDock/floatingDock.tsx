@@ -4,258 +4,258 @@
  * Mobile navbar is better positioned at bottom right.
  **/
 
-import { cn } from "../../lib/utils";
-import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
+import {cn} from "../../lib/utils";
+import {IconLayoutNavbarCollapse} from "@tabler/icons-react";
 import {
-  AnimatePresence,
-  MotionValue,
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
+    AnimatePresence,
+    MotionValue,
+    motion,
+    useMotionValue,
+    useSpring,
+    useTransform,
 } from "framer-motion";
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 export type FloatingDockItems = {
-  title: string;
-  icon: React.ReactNode;
-  href: string;
-  redirect: boolean;
+    title: string;
+    icon: React.ReactNode;
+    href: string;
+    redirect: boolean;
 };
 
 export const FloatingDock = ({
-  items,
-  desktopClassName,
-  mobileClassName,
-}: {
-  items: FloatingDockItems[];
-  desktopClassName?: string;
-  mobileClassName?: string;
+                                 items,
+                                 desktopClassName,
+                                 mobileClassName,
+                             }: {
+    items: FloatingDockItems[];
+    desktopClassName?: string;
+    mobileClassName?: string;
 }) => {
-  return (
-    <>
-      <FloatingDockDesktop items={items} className={desktopClassName} />
-      <FloatingDockMobile items={items} className={mobileClassName} />
-    </>
-  );
+    return (
+        <>
+            <FloatingDockDesktop items={items} className={desktopClassName}/>
+            <FloatingDockMobile items={items} className={mobileClassName}/>
+        </>
+    );
 };
 
 const FloatingDockMobile = ({
-  items,
-  className,
-}: {
-  items: FloatingDockItems[];
-  className?: string;
+                                items,
+                                className,
+                            }: {
+    items: FloatingDockItems[];
+    className?: string;
 }) => {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  return (
-    <div className={cn("relative block pl-3 -mt-12 md:hidden", className)}>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            layoutId="nav"
-            className="absolute bottom-full pl-3 mb-2 inset-x-0 flex flex-col gap-2"
-          >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                {item.redirect ? (
-                  <a href={item.href} target="_blank">
-                    <div
-                      key={item.title}
-                      className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-950 flex items-center justify-center"
+    const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+    return (
+        <div className={cn("relative block w-12 z-50 pl-3 -mt-12 md:hidden", className)}>
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        layoutId="nav"
+                        className="absolute z-50 bottom-full pl-3 mb-2 inset-x-0 flex flex-col gap-2"
                     >
-                      <div className="h-4 w-4">{item.icon}</div>
-                    </div>
-                  </a>
-                ) : (
-                  <div
-                    onClick={() => {
-                      navigate(item.href);
-                    }}
-                    key={item.title}
-                    className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-950 flex items-center justify-center"
-                  >
-                    <div className="h-4 w-4">{item.icon}</div>
-                  </div>
+                        {items.map((item, idx) => (
+                            <motion.div
+                                key={item.title}
+                                initial={{opacity: 0, y: 10}}
+                                animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                }}
+                                exit={{
+                                    opacity: 0,
+                                    y: 10,
+                                    transition: {
+                                        delay: idx * 0.05,
+                                    },
+                                }}
+                                transition={{delay: (items.length - 1 - idx) * 0.05}}
+                            >
+                                {item.redirect ? (
+                                    <a href={item.href} target="_blank">
+                                        <div
+                                            key={item.title}
+                                            className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-950 flex items-center justify-center"
+                                        >
+                                            <div className="h-4 w-4">{item.icon}</div>
+                                        </div>
+                                    </a>
+                                ) : (
+                                    <div
+                                        onClick={() => {
+                                            navigate(item.href);
+                                        }}
+                                        key={item.title}
+                                        className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-950 flex items-center justify-center"
+                                    >
+                                        <div className="h-4 w-4">{item.icon}</div>
+                                    </div>
+                                )}
+                            </motion.div>
+                        ))}
+                    </motion.div>
                 )}
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <button
-        onClick={() => setOpen(!open)}
-        className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
-      >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-sky-700 " />
-      </button>
-    </div>
-  );
+            </AnimatePresence>
+            <button
+                onClick={() => setOpen(!open)}
+                className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
+            >
+                <IconLayoutNavbarCollapse className="h-5 w-5 text-sky-700 "/>
+            </button>
+        </div>
+    );
 };
 
 const FloatingDockDesktop = ({
-  items,
-  className,
-}: {
-  items: FloatingDockItems[];
-  className?: string;
+                                 items,
+                                 className,
+                             }: {
+    items: FloatingDockItems[];
+    className?: string;
 }) => {
-  const mouseX = useMotionValue(Infinity);
-  return (
-    <motion.div
-      onMouseMove={(e) => mouseX.set(e.pageX)}
-      onMouseLeave={() => mouseX.set(Infinity)}
-      className={cn(
-        "mx-auto hidden md:flex h-16 gap-4 items-end   rounded-2xl bg-gray-50 dark:bg-neutral-950 border-sky-900 border-2  px-4 pb-3",
-        className
-      )}
-    >
-      {items.map((item) => (
-        <IconContainer mouseX={mouseX} key={item.title} {...item} />
-      ))}
-    </motion.div>
-  );
+    const mouseX = useMotionValue(Infinity);
+    return (
+        <motion.div
+            onMouseMove={(e) => mouseX.set(e.pageX)}
+            onMouseLeave={() => mouseX.set(Infinity)}
+            className={cn(
+                "mx-auto hidden md:flex h-16 gap-4 items-end   rounded-2xl bg-gray-50 dark:bg-neutral-950 border-sky-900 border-2  px-4 pb-3",
+                className
+            )}
+        >
+            {items.map((item) => (
+                <IconContainer mouseX={mouseX} key={item.title} {...item} />
+            ))}
+        </motion.div>
+    );
 };
 
 function IconContainer({
-  mouseX,
-  title,
-  icon,
-  href,
-  redirect,
-}: {
-  mouseX: MotionValue;
-  title: string;
-  icon: React.ReactNode;
-  href: string;
-  redirect: boolean;
+                           mouseX,
+                           title,
+                           icon,
+                           href,
+                           redirect,
+                       }: {
+    mouseX: MotionValue;
+    title: string;
+    icon: React.ReactNode;
+    href: string;
+    redirect: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
 
-  const distance = useTransform(mouseX, (val) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    const distance = useTransform(mouseX, (val) => {
+        const bounds = ref.current?.getBoundingClientRect() ?? {x: 0, width: 0};
 
-    return val - bounds.x - bounds.width / 2;
-  });
+        return val - bounds.x - bounds.width / 2;
+    });
 
-  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
-  const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+    const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+    const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
 
-  const widthTransformIcon = useTransform(
-    distance,
-    [-150, 0, 150],
-    [20, 40, 20]
-  );
-  const heightTransformIcon = useTransform(
-    distance,
-    [-150, 0, 150],
-    [20, 40, 20]
-  );
+    const widthTransformIcon = useTransform(
+        distance,
+        [-150, 0, 150],
+        [20, 40, 20]
+    );
+    const heightTransformIcon = useTransform(
+        distance,
+        [-150, 0, 150],
+        [20, 40, 20]
+    );
 
-  const width = useSpring(widthTransform, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
-  const height = useSpring(heightTransform, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
+    const width = useSpring(widthTransform, {
+        mass: 0.1,
+        stiffness: 150,
+        damping: 12,
+    });
+    const height = useSpring(heightTransform, {
+        mass: 0.1,
+        stiffness: 150,
+        damping: 12,
+    });
 
-  const widthIcon = useSpring(widthTransformIcon, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
-  const heightIcon = useSpring(heightTransformIcon, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
+    const widthIcon = useSpring(widthTransformIcon, {
+        mass: 0.1,
+        stiffness: 150,
+        damping: 12,
+    });
+    const heightIcon = useSpring(heightTransformIcon, {
+        mass: 0.1,
+        stiffness: 150,
+        damping: 12,
+    });
 
-  const [hovered, setHovered] = useState(false);
-  const navigate = useNavigate();
+    const [hovered, setHovered] = useState(false);
+    const navigate = useNavigate();
 
-  return redirect ? (
-    <a href={href} target="_blank">
-      <motion.div
-        ref={ref}
-        style={{ width, height }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-900 flex items-center justify-center relative"
-      >
-        <AnimatePresence>
-          {hovered && (
+    return redirect ? (
+        <a href={href} target="_blank">
             <motion.div
-              initial={{ opacity: 0, y: 10, x: "-50%" }}
-              animate={{ opacity: 1, y: 0, x: "-50%" }}
-              exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="px-2 py-0.5 whitespace-pre rounded-md bg-gray-100 border dark:bg-neutral-900 dark:border-neutral-950 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
+                ref={ref}
+                style={{width, height}}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-900 flex items-center justify-center relative"
             >
-              {title}
+                <AnimatePresence>
+                    {hovered && (
+                        <motion.div
+                            initial={{opacity: 0, y: 10, x: "-50%"}}
+                            animate={{opacity: 1, y: 0, x: "-50%"}}
+                            exit={{opacity: 0, y: 2, x: "-50%"}}
+                            className="px-2 py-0.5 whitespace-pre rounded-md bg-gray-100 border dark:bg-neutral-900 dark:border-neutral-950 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
+                        >
+                            {title}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                <motion.div
+                    style={{width: widthIcon, height: heightIcon}}
+                    className="flex items-center justify-center"
+                >
+                    {icon}
+                </motion.div>
             </motion.div>
-          )}
-        </AnimatePresence>
-        <motion.div
-          style={{ width: widthIcon, height: heightIcon }}
-          className="flex items-center justify-center"
+        </a>
+    ) : (
+        <div
+            className="clickable"
+            onClick={() => {
+                navigate(href);
+            }}
         >
-          {icon}
-        </motion.div>
-      </motion.div>
-    </a>
-  ) : (
-    <div
-      className="clickable"
-      onClick={() => {
-        navigate(href);
-      }}
-    >
-      <motion.div
-        ref={ref}
-        style={{ width, height }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-900 flex items-center justify-center relative"
-      >
-        <AnimatePresence>
-          {hovered && (
             <motion.div
-              initial={{ opacity: 0, y: 10, x: "-50%" }}
-              animate={{ opacity: 1, y: 0, x: "-50%" }}
-              exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="px-2 py-0.5 whitespace-pre rounded-md bg-gray-100 border dark:bg-neutral-900 dark:border-neutral-900 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
+                ref={ref}
+                style={{width, height}}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-900 flex items-center justify-center relative"
             >
-              {title}
+                <AnimatePresence>
+                    {hovered && (
+                        <motion.div
+                            initial={{opacity: 0, y: 10, x: "-50%"}}
+                            animate={{opacity: 1, y: 0, x: "-50%"}}
+                            exit={{opacity: 0, y: 2, x: "-50%"}}
+                            className="px-2 py-0.5 whitespace-pre rounded-md bg-gray-100 border dark:bg-neutral-900 dark:border-neutral-900 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
+                        >
+                            {title}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                <motion.div
+                    style={{width: widthIcon, height: heightIcon}}
+                    className="flex items-center justify-center"
+                >
+                    {icon}
+                </motion.div>
             </motion.div>
-          )}
-        </AnimatePresence>
-        <motion.div
-          style={{ width: widthIcon, height: heightIcon }}
-          className="flex items-center justify-center"
-        >
-          {icon}
-        </motion.div>
-      </motion.div>
-    </div>
-  );
+        </div>
+    );
 }

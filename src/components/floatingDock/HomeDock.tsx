@@ -78,7 +78,7 @@ export const HomeDockItems: FloatingDockItems[] = [
                 style={{filter: "drop-shadow(0px 0px 7px rgba(3,105,161,0.9))"}}
             />
         ),
-        href: "https://www.github.com/tacotakedown",
+        href: "https://discordapp.com/users/279054249919381505",
         redirect: true,
     },
 
